@@ -372,7 +372,7 @@ class vmaf():
             self.ffmpegQos.main.setTrimFilter(offset, duration)
             self.ffmpegQos.ref.setTrimFilter(0, duration)
 
-    def getVmaf(self, autoSync=True):
+    def getVmaf(self, syncWin, ss, reverse, autoSync=True):
         """ clean all filters first """
         self.ffmpegQos.clearFilters()
         self.ffmpegQos.main.clearFilters()
@@ -390,7 +390,7 @@ class vmaf():
            It is suggested to run syncOffset manually before getVmaf()
         """
         if autoSync:
-            offset, psnr = self.syncOffset()
+            offset, psnr = self.syncOffset(syncWin, ss, reverse)
         """Apply Offset filters, if offset =0 nothing happens """
         self.setOffset()
 

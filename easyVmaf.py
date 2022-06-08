@@ -159,7 +159,7 @@ if __name__ == '__main__':
         #     else:
         #         myVmaf.offset = offset
 
-        vmafProcess, offset, psnr = myVmaf.getVmaf()
+        vmafProcess, offset, psnr = myVmaf.getVmaf(syncWin, ss, reverse)
         log.info(f"Sync offset: {offset}, PSNR: {psnr}")
         assert psnr > 25, "PSNR value is too low. Make sure your video is synced."
         vmafpath = myVmaf.ffmpegQos.vmafpath
