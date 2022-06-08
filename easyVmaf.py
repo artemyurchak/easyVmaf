@@ -149,19 +149,19 @@ if __name__ == '__main__':
                       output_fmt=output_fmt, threads=threads, print_progress=print_progress, end_sync=end_sync, manual_fps=fps)
         '''check if syncWin was set. If true offset is computed automatically, otherwise manual values are used  '''
 
-        # if syncWin > 0:
-        #     offset, psnr = myVmaf.syncOffset(syncWin, ss, reverse)
-        # else:
-        #     offset = ss
-        #     psnr = None
-        #     if reverse:
-        #         myVmaf.offset = -offset
-        #     else:
-        #         myVmaf.offset = offset
+        if syncWin > 0:
+            offset, psnr = myVmaf.syncOffset(syncWin, ss, reverse)
+            log.info(f"Sync offset: {offset}, PSNR: {psnr}")
+            assert psnr > 25, "PSNR value is too low. Make sure your video is synced."
+        else:
+            offset = ss
+            psnr = None
+            if reverse:
+                myVmaf.offset = -offset
+            else:
+                myVmaf.offset = offset
 
-        vmafProcess, offset, psnr = myVmaf.getVmaf(syncWin, ss, reverse)
-        log.info(f"Sync offset: {offset}, PSNR: {psnr}")
-        assert psnr > 25, "PSNR value is too low. Make sure your video is synced."
+        vmafProcess = myVmaf.getVmaf()
         vmafpath = myVmaf.ffmpegQos.vmafpath
         vmafScore = []
 
